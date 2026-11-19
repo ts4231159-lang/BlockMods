@@ -3,49 +3,112 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>BlockMods - Free Minecraft Mods</title>
+<title>BlockMods - Explore</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:Arial,sans-serif}
-body{background:#0f0f0f;color:white}
-header{background:#1a1a1a;padding:15px;text-align:center;border-bottom:3px solid #44ff44}
-header h1{font-size:28px;color:#44ff44}
-header p{color:#ccc;font-size:13px;margin-top:5px}
-.search{padding:15px;text-align:center}
-.search input{width:90%;max-width:500px;padding:12px;border-radius:10px;border:none;font-size:16px}
-.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:12px}
-.card{background:#1e1e1e;border-radius:15px;padding:12px;text-align:center;border:1px solid #333}
-.card img{width:100%;height:110px;object-fit:cover;border-radius:10px}
-.card h3{margin:10px 0 5px;font-size:16px}
-.card p{font-size:12px;color:#aaa}
-.btn{display:block;background:#44ff44;color:black;font-weight:bold;padding:10px;border-radius:10px;margin-top:10px;text-decoration:none}
-.btn2{background:#222;color:white}
-footer{text-align:center;padding:20px;color:#777;font-size:12px}
-@media(min-width:700px){.grid{grid-template-columns:1fr 1fr 1fr 1fr}}
+body{background:#f3f4f3;padding-bottom:105px}
+.top{padding:18px 18px 8px;display:flex;justify-content:space-between;align-items:center;background:#fff}
+.top h1{font-size:32px;font-weight:900;letter-spacing:-1px}
+.top h1 span{color:#0fa854}
+.avatar{width:46px;height:46px;border-radius:50%;background:#111;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:22px}
+.tabs{display:flex;gap:10px;padding:12px 18px;background:#fff;overflow-x:auto}
+.tabs button{border:0;padding:11px 22px;border-radius:22px;font-weight:700;background:#eeeeee;color:#888;white-space:nowrap;font-size:15px}
+.tabs button.active{background:#1f1f1f;color:#fff}
+.head{padding:18px 18px 12px;display:flex;justify-content:space-between;align-items:center}
+.head h2{font-size:22px}
+.head a{color:#0fa854;font-weight:800;text-decoration:none;font-size:15px}
+.card{background:#fff;border-radius:24px;overflow:hidden;margin:0 16px 18px;box-shadow:0 6px 22px rgba(0,0,0,0.08)}
+.card-img{height:190px;background:linear-gradient(135deg,#1a1a1a,#0fa854);display:flex;align-items:center;justify-content:center;color:#fff;font-size:36px;font-weight:900;text-align:center;line-height:1.2}
+.card-body{padding:16px}
+.card-body h3{font-size:19px}
+.card-body p{color:#888;font-size:13px;margin:5px 0 12px}
+.row{display:flex;justify-content:space-between;align-items:center}
+.stars{font-size:14px}
+.get-btn{background:#0fa854;color:#fff;border:0;padding:12px 26px;border-radius:22px;font-weight:800;font-size:15px}
+.lock{font-size:12px;background:#fff3cd;padding:9px 10px;border-radius:10px;margin-top:12px;text-align:center}
+.bottom{position:fixed;bottom:0;left:0;right:0;background:#fff;display:flex;justify-content:space-around;padding:12px 0 14px;border-top:1px solid #eee;border-radius:22px 22px 0 0}
+.bottom div{text-align:center;font-size:12px;color:#888}
+.bottom div.active{color:#0fa854;font-weight:800}
+.bottom span{font-size:24px;display:block}
 </style>
 </head>
 <body>
-<header>
-<h1>🧱 BlockMods</h1>
-<p>Free Minecraft Mods | Safe & Fast Download</p>
-</header>
-<div class="search">
-<input type="text" id="search" placeholder="🔍 Search Mods... e.g. Jenny, Car, Gun" onkeyup="filterMods()">
+
+<div class="top">
+<h1>Block<span>Mods</span></h1>
+<div class="avatar">B</div>
 </div>
-<div class="grid" id="grid">
-<div class="card"><img src="https://images.unsplash.com/photo-1587573089734-09cb69c0f2b4?w=400"><h3>Jenny Mod</h3><p>Most Popular | 12M Downloads</p><a class="btn" href="#">⬇ Download</a></div>
-<div class="card"><img src="https://images.unsplash.com/photo-1614294148960-9aa740632a87?w=400"><h3>Car Mod</h3><p>Cars, Bikes | 8M Downloads</p><a class="btn" href="#">⬇ Download</a></div>
-<div class="card"><img src="https://images.unsplash.com/photo-1593305841991-05c297ba4575?w=400"><h3>Gun Mod</h3><p>Real Guns | 9M Downloads</p><a class="btn" href="#">⬇ Download</a></div>
-<div class="card"><img src="https://images.unsplash.com/photo-1547036967-23d11aacaee0?w=400"><h3>Shaders Mod</h3><p>Real Graphics | 15M Downloads</p><a class="btn" href="#">⬇ Download</a></div>
-<div class="card"><img src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?w=400"><h3>Superhero Mod</h3><p>Iron Man, Hulk | 6M Downloads</p><a class="btn" href="#">⬇ Download</a></div>
-<div class="card"><img src="https://images.unsplash.com/photo-1518709268805-4e9042af9f23?w=400"><h3>City Mod</h3><p>Big City Map | 4M Downloads</p><a class="btn" href="#">⬇ Download</a></div>
+
+<div class="tabs">
+<button class="active">All</button>
+<button>World</button>
+<button>Add-On</button>
+<button>Texture</button>
+<button>Skin</button>
 </div>
-<footer>© 2026 BlockMods - Made for Minecraft Lovers<br><a href="#" style="color:#44ff44">Privacy Policy | Contact</a></footer>
+
+<div class="head">
+<h2>New Arrivals</h2>
+<a href="#">View All ></a>
+</div>
+
+<div class="card">
+<div class="card-img">COMING<br>SOON 1</div>
+<div class="card-body">
+<h3>BlockMods Pack 1</h3>
+<p>By BlockMods • Coming Soon</p>
+<div class="row">
+<div class="stars">⭐ 5.0 • New</div>
+<button class="get-btn" onclick="checkPass()">GET</button>
+</div>
+<div class="lock">🔒 Locked - Only Owner Can Download</div>
+</div>
+</div>
+
+<div class="card">
+<div class="card-img">COMING<br>SOON 2</div>
+<div class="card-body">
+<h3>BlockMods Pack 2</h3>
+<p>By BlockMods • Coming Soon</p>
+<div class="row">
+<div class="stars">⭐ 5.0 • New</div>
+<button class="get-btn" onclick="checkPass()">GET</button>
+</div>
+<div class="lock">🔒 Locked - Only Owner Can Download</div>
+</div>
+</div>
+
+<div class="card">
+<div class="card-img">COMING<br>SOON 3</div>
+<div class="card-body">
+<h3>BlockMods Pack 3</h3>
+<p>By BlockMods • Coming Soon</p>
+<div class="row">
+<div class="stars">⭐ 5.0 • New</div>
+<button class="get-btn" onclick="checkPass()">GET</button>
+</div>
+<div class="lock">🔒 Locked - Only Owner Can Download</div>
+</div>
+</div>
+
+<div class="bottom">
+<div class="active"><span>🧭</span>Explore</div>
+<div><span>📊</span>Charts</div>
+<div><span>👥</span>Community</div>
+<div><span>🔍</span>Search</div>
+<div><span>👕</span>Skins</div>
+</div>
+
 <script>
-function filterMods(){
-let v=document.getElementById("search").value.toLowerCase();
-let cards=document.querySelectorAll(".card");
-cards.forEach(c=>{c.style.display=c.innerText.toLowerCase().includes(v)?"block":"none"});
+function checkPass(){
+  var p = prompt("Owner Password Daliye:");
+  if(p === "T9mK7vP2xL8qR4nW6zH3cY5sB1dF0jA745fheye"){
+    alert("Welcome Owner! Abhi koi mod file nahi hai. Update ke baad yaha file aayegi.");
+  } else {
+    alert("Wrong Password! Download sirf Owner kar sakta hai.");
+  }
 }
 </script>
+
 </body>
-</html>
+  </html>
