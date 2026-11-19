@@ -1,114 +1,135 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>BlockMods - Explore</title>
-<style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:Arial,sans-serif}
-body{background:#f3f4f3;padding-bottom:105px}
-.top{padding:18px 18px 8px;display:flex;justify-content:space-between;align-items:center;background:#fff}
-.top h1{font-size:32px;font-weight:900;letter-spacing:-1px}
-.top h1 span{color:#0fa854}
-.avatar{width:46px;height:46px;border-radius:50%;background:#111;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:22px}
-.tabs{display:flex;gap:10px;padding:12px 18px;background:#fff;overflow-x:auto}
-.tabs button{border:0;padding:11px 22px;border-radius:22px;font-weight:700;background:#eeeeee;color:#888;white-space:nowrap;font-size:15px}
-.tabs button.active{background:#1f1f1f;color:#fff}
-.head{padding:18px 18px 12px;display:flex;justify-content:space-between;align-items:center}
-.head h2{font-size:22px}
-.head a{color:#0fa854;font-weight:800;text-decoration:none;font-size:15px}
-.card{background:#fff;border-radius:24px;overflow:hidden;margin:0 16px 18px;box-shadow:0 6px 22px rgba(0,0,0,0.08)}
-.card-img{height:190px;background:linear-gradient(135deg,#1a1a1a,#0fa854);display:flex;align-items:center;justify-content:center;color:#fff;font-size:36px;font-weight:900;text-align:center;line-height:1.2}
-.card-body{padding:16px}
-.card-body h3{font-size:19px}
-.card-body p{color:#888;font-size:13px;margin:5px 0 12px}
-.row{display:flex;justify-content:space-between;align-items:center}
-.stars{font-size:14px}
-.get-btn{background:#0fa854;color:#fff;border:0;padding:12px 26px;border-radius:22px;font-weight:800;font-size:15px}
-.lock{font-size:12px;background:#fff3cd;padding:9px 10px;border-radius:10px;margin-top:12px;text-align:center}
-.bottom{position:fixed;bottom:0;left:0;right:0;background:#fff;display:flex;justify-content:space-around;padding:12px 0 14px;border-top:1px solid #eee;border-radius:22px 22px 0 0}
-.bottom div{text-align:center;font-size:12px;color:#888}
-.bottom div.active{color:#0fa854;font-weight:800}
-.bottom span{font-size:24px;display:block}
-</style>
-</head>
-<body>
+package com.yourapp
 
-<div class="top">
-<h1>Block<span>Mods</span></h1>
-<div class="avatar">B</div>
-</div>
+import android.os.Bundle
+import androidx.activity.ComponentActivity
+import androidx.activity.compose.setContent
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
+import androidx.compose.foundation.border
+import androidx.compose.foundation.horizontalScroll
+import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
+import java.util.concurrent.TimeUnit
 
-<div class="tabs">
-<button class="active">All</button>
-<button>World</button>
-<button>Add-On</button>
-<button>Texture</button>
-<button>Skin</button>
-</div>
+class MainActivity : ComponentActivity() {
+    // YAHAN CUSTOM ICON - Apne icon ka naam yahan likho
+    data class Mod(val name: String, val uploadTime: Long, val icon: Int = R.drawable.my_icon)
+    val NEW_DAYS = 25
 
-<div class="head">
-<h2>New Arrivals</h2>
-<a href="#">View All ></a>
-</div>
+    val allMods = listOf(
+        Mod("Mod 1", 0),
+        Mod("Mod 2", System.currentTimeMillis()),
+        Mod("Mod 3", System.currentTimeMillis()),
+        Mod("Mod 4", System.currentTimeMillis()),
+        Mod("Mod 5", System.currentTimeMillis())
+    )
 
-<div class="card">
-<div class="card-img">COMING<br>SOON 1</div>
-<div class="card-body">
-<h3>BlockMods Pack 1</h3>
-<p>By BlockMods • Coming Soon</p>
-<div class="row">
-<div class="stars">⭐ 5.0 • New</div>
-<button class="get-btn" onclick="checkPass()">GET</button>
-</div>
-<div class="lock">🔒 Locked - Only Owner Can Download</div>
-</div>
-</div>
+    fun isNew(mod: Mod): Boolean {
+        if (mod.uploadTime == 0L) return true
+        val days = TimeUnit.MILLISECONDS.toDays(System.currentTimeMillis() - mod.uploadTime)
+        return days < NEW_DAYS
+    }
 
-<div class="card">
-<div class="card-img">COMING<br>SOON 2</div>
-<div class="card-body">
-<h3>BlockMods Pack 2</h3>
-<p>By BlockMods • Coming Soon</p>
-<div class="row">
-<div class="stars">⭐ 5.0 • New</div>
-<button class="get-btn" onclick="checkPass()">GET</button>
-</div>
-<div class="lock">🔒 Locked - Only Owner Can Download</div>
-</div>
-</div>
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContent {
+            Column(modifier = Modifier.fillMaxSize().background(Color.White)) {
+                // UPAR - Custom Icon + App Name
+                Row(modifier = Modifier.padding(16.dp), verticalAlignment = Alignment.CenterVertically) {
+                    Image(
+                        painter = painterResource(id = R.drawable.my_icon),
+                        contentDescription = "App Icon",
+                        modifier = Modifier.size(40.dp).clip(CircleShape).border(1.dp, Color.Black, CircleShape)
+                    )
+                    Spacer(modifier = Modifier.width(10.dp))
+                    Text("YOUR APP NAME", fontSize = 20.sp, fontWeight = FontWeight.Bold)
+                }
+                Text("Explore", fontSize = 26.sp, fontWeight = FontWeight.Bold, modifier = Modifier.align(Alignment.CenterHorizontally))
 
-<div class="card">
-<div class="card-img">COMING<br>SOON 3</div>
-<div class="card-body">
-<h3>BlockMods Pack 3</h3>
-<p>By BlockMods • Coming Soon</p>
-<div class="row">
-<div class="stars">⭐ 5.0 • New</div>
-<button class="get-btn" onclick="checkPass()">GET</button>
-</div>
-<div class="lock">🔒 Locked - Only Owner Can Download</div>
-</div>
-</div>
+                Row(modifier = Modifier.padding(12.dp)) {
+                    Box(modifier = Modifier.weight(1f).background(Color.Black, RoundedCornerShape(12.dp)).padding(10.dp), contentAlignment = Alignment.Center) {
+                        Text("All", color = Color.White)
+                    }
+                    Box(modifier = Modifier.weight(1f).background(Color(0xFFF5F5F5), RoundedCornerShape(12.dp)).padding(10.dp), contentAlignment = Alignment.Center) {
+                        Text("World", color = Color.Gray)
+                    }
+                    Box(modifier = Modifier.weight(1f).background(Color(0xFFF5F5F5), RoundedCornerShape(12.dp)).padding(10.dp), contentAlignment = Alignment.Center) {
+                        Text("Add-On", color = Color.Gray)
+                    }
+                }
 
-<div class="bottom">
-<div class="active"><span>🧭</span>Explore</div>
-<div><span>📊</span>Charts</div>
-<div><span>👥</span>Community</div>
-<div><span>🔍</span>Search</div>
-<div><span>👕</span>Skins</div>
-</div>
+                Row(modifier = Modifier.padding(horizontal = 16.dp)) {
+                    Text("New Arrivals", fontSize = 22.sp, fontWeight = FontWeight.Bold, modifier = Modifier.weight(1f))
+                    Text("View All", color = Color(0xFF4CAF50), fontWeight = FontWeight.Bold)
+                }
 
-<script>
-function checkPass(){
-  var p = prompt("Owner Password Daliye:");
-  if(p === "T9mK7vP2xL8qR4nW6zH3cY5sB1dF0jA745fheye"){
-    alert("Welcome Owner! Abhi koi mod file nahi hai. Update ke baad yaha file aayegi.");
-  } else {
-    alert("Wrong Password! Download sirf Owner kar sakta hai.");
-  }
+                Row(modifier = Modifier.horizontalScroll(rememberScrollState()).padding(12.dp)) {
+                    allMods.take(10).forEach { mod -> ModCard(mod) }
+                }
+
+                Column(modifier = Modifier.verticalScroll(rememberScrollState()).weight(1f).padding(12.dp)) {
+                    allMods.forEach { mod -> ModCard(mod) }
+                }
+
+                Row(modifier = Modifier.fillMaxWidth().background(Color.White).padding(vertical = 8.dp)) {
+                    Text("⊞ Explore", color = Color(0xFF4CAF50), modifier = Modifier.weight(1f), fontSize = 12.sp)
+                    Text("↗ Charts", color = Color.Gray, modifier = Modifier.weight(1f), fontSize = 12.sp)
+                    Text("💬 Community", color = Color.Gray, modifier = Modifier.weight(1f), fontSize = 12.sp)
+                    Text("🔍 Search", color = Color.Gray, modifier = Modifier.weight(1f), fontSize = 12.sp)
+                    Text("👕 Skins", color = Color.Gray, modifier = Modifier.weight(1f), fontSize = 12.sp)
+                }
+            }
+        }
+    }
+
+    @Composable
+    fun ModCard(mod: Mod) {
+        Column(
+            modifier = Modifier
+                .width(280.dp)
+                .padding(6.dp)
+                .clip(RoundedCornerShape(16.dp))
+                .border(2.dp, Color.Black, RoundedCornerShape(16.dp))
+                .background(Color.White)
+        ) {
+            if (isNew(mod)) {
+                Box(modifier = Modifier.background(Color(0xFF00E676)).padding(horizontal = 8.dp, vertical = 2.dp)) {
+                    Text("NEW ✦", fontWeight = FontWeight.Bold, fontSize = 13.sp)
+                }
+            }
+            // CARD KE ANDAR BHI CUSTOM ICON
+            Row(modifier = Modifier.fillMaxWidth().background(Color.Black).padding(20.dp), verticalAlignment = Alignment.CenterVertically) {
+                Image(
+                    painter = painterResource(id = mod.icon),
+                    contentDescription = null,
+                    modifier = Modifier.size(50.dp).clip(CircleShape)
+                )
+                Spacer(modifier = Modifier.width(12.dp))
+                Column {
+                    Text(mod.name, color = Color.White, fontSize = 20.sp, fontWeight = FontWeight.Bold)
+                    Text("NO MOD AVAILABLE", color = Color.White, fontSize = 16.sp, fontWeight = FontWeight.Bold)
+                    Text("UPCOMING", color = Color.White, fontSize = 12.sp)
+                }
+            }
+            Row(modifier = Modifier.fillMaxWidth().padding(12.dp), verticalAlignment = Alignment.CenterVertically) {
+                Text("UPCOMING", fontWeight = FontWeight.Bold, modifier = Modifier.weight(1f))
+                Box(modifier = Modifier.background(Color(0xFFFF8C00), RoundedCornerShape(8.dp)).padding(horizontal = 20.dp, vertical = 8.dp)) {
+                    Text("↓", color = Color.White, fontSize = 20.sp)
+                }
+            }
+        }
+    }
 }
-</script>
-
-</body>
-  </html>
